@@ -1,25 +1,35 @@
 import asyncio
-from concurrent.futures import ProcessPoolExecutor
 import os
+from concurrent.futures import ProcessPoolExecutor
 
+from kink import inject
 from torch import device as t_device
 from torch.hub import download_url_to_file
 from torch.package import PackageImporter
 
-from tasks.yml_data import get_tts_yml_data
+from yml_data import get_tts_yml_data
 
 
+@inject
 def save_speech_to_file(
-    device: t_device, package: str, rate: int, speaker: str, text: str
+    device: t_device,
+    package: str,
+    rate: int,
+    speaker: str,
+    text: str,
+    curr_dir: str
 ) -> None:
     """Save speech to wav file"""
 
-    local_file = 'model.pt'
+    local_file = f'{curr_dir}/model.pt'
     if not os.path.isfile(local_file):
         download_url_to_file(package, local_file)
 
     package_importer = PackageImporter(local_file)
     model = package_importer.load_pickle('tts_models', 'model')
+    print(type(model))
+    return
+
     model.to(device)
 
     model.save_wav(text=text, speaker=speaker, sample_rate=rate)
@@ -87,3 +97,7 @@ def main(lang: str, speaker: str, text: str) -> None:
     """
 
     asyncio.run(asave_tts(lang, speaker, text))
+
+
+if __name__ == '__main__':
+    main('ru', 'aidar_v2',  'Здаврова')

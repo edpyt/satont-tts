@@ -12,6 +12,9 @@ torch = "^2.1.2"
 numpy = "^1.26.3"
 
 
+[tool.poetry.group.task.dependencies]
+kink = "^0.7.0"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
