@@ -12,13 +12,9 @@ services:
       context: .
       dockerfile: ./compose/tasks/Dockerfile
     command: python tasks/task_2.py
-
     volumes:
       - silero_task_dir:./
-
-    depends_on:
-      task-1:
-        condition: service_completed_successfully
-
+  
+# Don't forget about volumes 😁
 volumes:
   silero_task_dir:

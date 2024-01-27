@@ -27,9 +27,6 @@ def save_speech_to_file(
 
     package_importer = PackageImporter(local_file)
     model = package_importer.load_pickle('tts_models', 'model')
-    print(type(model))
-    return
-
     model.to(device)
 
     model.save_wav(text=text, speaker=speaker, sample_rate=rate)
