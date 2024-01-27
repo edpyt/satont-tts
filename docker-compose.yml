@@ -2,5 +2,12 @@ services:
   simple_tts:
     build:
       context: .
-      dockerfile: ./Dockerfile
-    command: 
+      dockerfile: ./compose/dev/Dockerfile
+    command: "uvicorn src.main:run_api --reload --factory --host 0.0.0.0"
+    volumes:
+      - type: "bind"
+        source: "./silero-pretrained.yml"
+        target: "/code/silero-pretrained.yml"
+        read_only: true
+    ports:
+      - "8000:8000"

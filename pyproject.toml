@@ -1,19 +1,23 @@
 [tool.poetry]
-name = "satont_task"
+name = "silero-tts"
 version = "0.1.0"
-description = "Simple pre trained models for Satont task"
+description = "ahah"
 authors = ["edpyt <edrsa1321s@gmail.com>"]
 readme = "README.md"
-packages = [{include = "satont_task"}]
 
 [tool.poetry.dependencies]
 python = "^3.11"
+pyyaml = "^6.0.1"
+
+
+[tool.poetry.group.http.dependencies]
+fastapi = "^0.109.0"
+uvicorn = "^0.27.0"
+
 
 [tool.poetry.group.task.dependencies]
 kink = "^0.7.0"
 
-[tool.poetry.group.http.dependencies]
-fastapi = "^0.109.0"
 
 [tool.poetry.group.tts.dependencies]
 silero = "^0.4.1"
