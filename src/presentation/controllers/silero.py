@@ -14,8 +14,10 @@ async def save_speech_to_disk(
     lang: Annotated[Literal["ru", "en"], Form(title='Language')],
     speaker: Annotated[str, Form(title='Speaker')],
     text: Annotated[str, Form(title='Text')],
+    silero_service: SileroService = Depends(Stub(SileroService)),
 ) -> dict[str, str]:
-    request_body = TTSSaveWavDTO(lang, speaker, text)
+    save_wav_dto = TTSSaveWavDTO(lang, speaker, text)
+    print(silero_service, save_wav_dto)
     return {"status": "saved"}
 
 

@@ -5,5 +5,5 @@ task1:
 task2:
 	docker-compose -f docker-compose.tasks.yml run task-2 --build
 
-http:
+api:
 	docker-compose -f docker-compose.yml up --build
