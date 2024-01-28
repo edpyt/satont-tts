@@ -4,6 +4,6 @@ from typing import Literal
 
 @dataclass
 class LangSpeakerTextRequestBody:
-    lang: Literal["ru", "end"]
+    lang: Literal["ru", "en"]
     speaker: str
     text: str

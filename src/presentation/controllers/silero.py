@@ -1,6 +1,6 @@
-from typing import Annotated
+from typing import Annotated, Literal
 
-from fastapi import Depends
+from fastapi import Depends, Form
 
 from src.infrastructure.silero.service import SileroService
 from src.presentation.controllers.requests.silero import (
@@ -13,8 +13,11 @@ from src.presentation.providers.stub import Stub
 
 
 async def save_speech_to_disk(
-    request_body: LangSpeakerTextRequestBody,
+    lang: Annotated[Literal["ru", "en"], Form(title='Language')],
+    speaker: Annotated[str, Form(title='Speaker')],
+    text: Annotated[str, Form(title='Text')],
 ) -> dict[str, str]:
+    request_body = LangSpeakerTextRequestBody(lang, speaker, text)
     return {"status": "saved"}
 
 
