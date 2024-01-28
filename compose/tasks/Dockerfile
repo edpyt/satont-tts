@@ -10,6 +10,6 @@ COPY ./poetry.lock ./pyproject.toml /code/
 RUN python -m pip install --upgrade pip
 RUN pip install poetry
 RUN poetry config virtualenvs.create false
-RUN poetry install --with task,tts --without http
+RUN poetry install --with task,tts --without api
 
 COPY ./tasks /code/tasks
