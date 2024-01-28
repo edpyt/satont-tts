@@ -3,7 +3,7 @@ from typing import Literal
 
 
 @dataclass
-class LangSpeakerTextRequestBody:
+class TTSSaveWavDTO:
     lang: Literal["ru", "en"]
     speaker: str
     text: str

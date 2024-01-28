@@ -1,11 +1,9 @@
 from typing import Annotated, Literal
 
 from fastapi import Depends, Form
+from src.application.silero.dto.save_model import TTSSaveWavDTO
 
 from src.infrastructure.silero.service import SileroService
-from src.presentation.controllers.requests.silero import (
-    LangSpeakerTextRequestBody,
-)
 from src.presentation.controllers.responses.silero_data import (
     SileroDataResponse,
 )
@@ -17,7 +15,7 @@ async def save_speech_to_disk(
     speaker: Annotated[str, Form(title='Speaker')],
     text: Annotated[str, Form(title='Text')],
 ) -> dict[str, str]:
-    request_body = LangSpeakerTextRequestBody(lang, speaker, text)
+    request_body = TTSSaveWavDTO(lang, speaker, text)
     return {"status": "saved"}
 
 
