@@ -5,6 +5,7 @@ services:
       dockerfile: ./compose/dev/Dockerfile
     command: "uvicorn src.main:run_api --reload --factory --host 0.0.0.0"
     volumes:
+      - ./src:/code/src
       - type: "bind"
         source: "./silero-pretrained.yml"
         target: "/code/silero-pretrained.yml"

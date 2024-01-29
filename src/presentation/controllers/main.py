@@ -7,5 +7,6 @@ from src.presentation.controllers.silero import (
 
 
 def setup_controllers(app: FastAPI) -> None:
-    app.add_api_route("/speech", save_speech_to_disk, methods=['POST'])
+    app.add_api_route("/speech", save_speech_to_disk, methods=["POST"])
+
     app.add_api_route("/silero_data", fetch_all_available_langs)
