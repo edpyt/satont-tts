@@ -21,21 +21,22 @@ async def save_speech_to_disk(
     silero_service: SileroService = Depends(Stub(SileroService)),
 ) -> JSONResponse:
     save_wav_dto.rate = int(save_wav_dto.rate)
+
     tts_save_dto = TTSSaveResultDTO(**asdict(text), **asdict(save_wav_dto))
 
     save_status: str | None = await silero_service.save_tts(tts_save_dto)
     response: StatusResponse | None = None
     if save_status is None:
-        response = SileroSaveWavStatusError(message="Bad model provided!")
+        response = SileroSaveWavStatusError(message="Bad speaker provided!")
     else:
         response = SileroSaveWavStatusOk()
 
     return JSONResponse(status_code=response.status, content=response.message)
 
 
-async def fetch_all_available_langs(
+async def fetch_all_available_data(
     silero_service: Annotated[SileroService, Depends(Stub(SileroService))],
 ) -> JSONResponse:
-    data = await silero_service.all_available_langs()
+    data = await silero_service.all_available_data()
     response = SileroDataResponse(message=data)
     return JSONResponse(status_code=response.status, content=response.message)
