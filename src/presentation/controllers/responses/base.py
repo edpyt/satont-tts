@@ -8,18 +8,18 @@ class Response:
 
 
 @dataclass(frozen=True)
-class StatusResultResponse(Response):
+class StatusResponse(Response):
     status: int
-    result: Any
+    message: Any
 
 
 @dataclass(frozen=True)
-class ClientErrorResponse(StatusResultResponse):
-    status: int = 404
-    result: str | None = None # error message
+class ErrorResponse(StatusResponse):
+    status: int = 400
+    message: str | None = None
 
 
 @dataclass(frozen=True)
-class OkResponse(StatusResultResponse):
+class OkResponse(StatusResponse):
     status: int = 200
-    result: Any = None
+    message: Any = None

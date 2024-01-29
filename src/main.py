@@ -5,7 +5,7 @@ from src.presentation.controllers.main import setup_controllers
 
 
 def run_api() -> FastAPI:
-    app = FastAPI(title="Silero tts", version="1.0.0")
+    app = FastAPI(title="Silero TTS", version="1.0.0")
 
     setup_di(app)
     setup_controllers(app)

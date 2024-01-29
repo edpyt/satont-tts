@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from src.presentation.controllers.responses.base import OkResponse
+from src.presentation.controllers.responses.base import ErrorResponse, OkResponse
 
 
 @dataclass(frozen=True)
@@ -9,5 +9,10 @@ class SileroSaveWavStatusOk(OkResponse):
 
 
 @dataclass(frozen=True)
+class SileroSaveWavStatusError(ErrorResponse):
+    message: str = "Error"
+
+
+@dataclass(frozen=True)
 class SileroDataResponse(OkResponse):
-    result: dict
+    ...
