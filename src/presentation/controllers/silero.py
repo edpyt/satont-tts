@@ -1,24 +1,25 @@
-from typing import Annotated, Literal
+from dataclasses import asdict
+from typing import Annotated
 
-from fastapi import Depends, Form
-from src.application.silero.dto.save_model import TTSSaveWavDTO
+from fastapi import Depends
 
+from src.application.silero.dto.save_model import TTSSaveResultDTO, TTSSaveWavDTO, TTSTextDTO
 from src.infrastructure.silero.service import SileroService
-from src.presentation.controllers.responses.silero_data import (
+from src.presentation.controllers.responses.silero import (
     SileroDataResponse,
+    SileroSaveWavStatusOk,
 )
 from src.presentation.providers.stub import Stub
 
 
 async def save_speech_to_disk(
-    lang: Annotated[Literal["ru", "en"], Form(title='Language')],
-    speaker: Annotated[str, Form(title='Speaker')],
-    text: Annotated[str, Form(title='Text')],
+    text: TTSTextDTO,
+    save_wav_dto: TTSSaveWavDTO = Depends(),
     silero_service: SileroService = Depends(Stub(SileroService)),
-) -> dict[str, str]:
-    save_wav_dto = TTSSaveWavDTO(lang, speaker, text)
-    print(silero_service, save_wav_dto)
-    return {"status": "saved"}
+) -> SileroSaveWavStatusOk:
+    save_wav_dto.rate = int(save_wav_dto.rate)
+    tts_save_dto = TTSSaveResultDTO(**asdict(text), **asdict(save_wav_dto))
+    return SileroSaveWavStatusOk()
 
 
 async def fetch_all_available_langs(
