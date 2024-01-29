@@ -1,0 +1,10 @@
+# Without tts
+
+services:
+  simple_tts:
+    build:
+      context: .
+      dockerfile: ./compose/test/Dockerfile
+    command: "uvicorn src.main:run_api --reload --factory --host 0.0.0.0"
+    ports:
+      - "8000:8000"
